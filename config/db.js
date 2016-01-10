@@ -1,3 +1,3 @@
 module.exports = {
-	urlSubjectViews: 'mongodb://localhost:27017/donorschoose',
+	dbUrl: 'mongodb://localhost:27017/Webprogrammierung'
 }
