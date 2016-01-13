@@ -1,16 +1,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var requestedStaticFilesSchema = new Schema({
-    category: String,
-    hits: Number,
-    percentage: String,
-    url: String,
-    bandwidth: Number,
-    protocol: String,
-    method: String
-});
+module.exports = function() {
+    var RequestedStaticFilesSchema = new mongoose.Schema({
+        _id: Schema.Types.ObjectId,
+        category: String,
+        hits: Number,
+        percentage: String,
+        url: String,
+        bandwidth: Number,
+        protocol: String,
+        method: String
+    });
 
-var requestedStaticFiles = mongoose.model('requestedStaticFiles', requestedStaticFilesSchema);
-
-module.exports = requestedStaticFiles;
+    mongoose.model('requestedStaticFiles', RequestedStaticFilesSchema, 'requestedStaticFiles');
+};;

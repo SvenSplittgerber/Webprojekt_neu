@@ -1,13 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var GeolocationContinentsSchema = new Schema({
-    category: String,
-    visitors: Number,
-    percentage: String,
-    continent: String
-});
+module.exports = function() {
+    var GeolocationContinentsSchema = new mongoose.Schema({
+        _id: Schema.Types.ObjectId,
+        category: String,
+        visitors: Number,
+        percentage: String,
+        continent: String
+    });
 
-var geolocationContinents = mongoose.model('geolocationContinents', GeolocationContinentsSchema);
+    mongoose.model('geolocationContinents', GeolocationContinentsSchema, 'geolocationContinents');
 
-module.exports = geolocationContinents;
+};

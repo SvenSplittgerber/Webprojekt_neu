@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var generalSchema = new Schema({
-    _id: String,
-    category: String,
-    name: String,
-    value: String
-});
+module.exports = function() {
+    var generalSchema = new mongoose.Schema({
+        _id: Schema.Types.ObjectId,
+        category: String,
+        name: String,
+        value: String
+    });
 
-var general = mongoose.model('general', generalSchema);
-
-module.exports = general;
+    mongoose.model("general", generalSchema, "general");
+};
