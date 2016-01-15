@@ -4,7 +4,7 @@ var db = require('../config/db');
 // Einlesen der Schemata
 require('./models.js').initialize();
 
-// Verbindung mit mit MongoDB herstellen
+// Verbindung mit MongoDB herstellen
 mongoose.connect(db.dbUrl);
 
 var General = mongoose.model('general');
