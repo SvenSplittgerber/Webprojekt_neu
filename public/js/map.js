@@ -64,10 +64,9 @@ function showMap(show) {
 			.style("fill", "#A1A1A1")
 			.style({'stroke-width':'1.0px','stroke':'#ffffff'});
 
-		d3.json("/api/data", function(error, usage) {
+		d3.json("api/data", function(error, usage) {
 
-			// Das funktioniert einwandfrei
-			alert(usage.geolocationCountries[0].country + ", " + usage.geolocationCountries[0].visitors);
+			usage = usage.geolocationCountries;
 
 			// colors
 			var usageColors = ["#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404"];
@@ -75,18 +74,14 @@ function showMap(show) {
 			// color scale
 			var scaleUsageColors = d3.scale.linear();
 
-			//console.log(usage);
-
 			// ----------- Wirft undefined
 			var minimumUsage = d3.min(usage, function(d) {
-				console.log(d);
-				return d.geolocationCountries.visitors;
+				return d.visitors;
 			});
 
 			// ----------- Wirft undefined
 			var maximumUsage = d3.max(usage, function(d) {
-				console.log(d);
-				return d.geolocationCountries.visitors;
+				return d.visitors;
 			});
 
 			console.log(minimumUsage + ", " + maximumUsage);
@@ -112,9 +107,12 @@ function showMap(show) {
 
 		d3.json("api/data", function(error, usage) {
 
+			usage = usage.geolocationCountries;
+
 			for (i = 0; i < usage.length; i++) {
 				if (code === usage[i].country.split(" ")[0]) {
 					var visitors = usage[i].visitors;
+					//var country = usage[i].country;
 				}
 			}
 
@@ -152,8 +150,6 @@ function showMap(show) {
 					.attr("y", bbox.y - padding.top);
 			}
 		});
-
-
 	}
 }
 
