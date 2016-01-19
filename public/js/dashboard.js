@@ -1,4 +1,8 @@
-function showMap(show) {
+function showRequestedFiles(){
+
+}
+
+function showMap() {
 
 	// var to store tooltip object
 	var tooltip;
