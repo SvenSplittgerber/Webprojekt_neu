@@ -109,10 +109,12 @@ function showMap(show) {
 
 			usage = usage.geolocationCountries;
 
+			if (tooltip) tooltip.remove();
+
 			for (i = 0; i < usage.length; i++) {
 				if (code === usage[i].country.split(" ")[0]) {
 					var visitors = usage[i].visitors;
-					//var country = usage[i].country;
+					var country = usage[i].country;
 				}
 			}
 
@@ -133,7 +135,7 @@ function showMap(show) {
 				text = tooltip
 					.append("text")
 					.attr("class", "tooltip")
-					.text(visitors)
+					.text(country + ": " + visitors + " visitors")
 					.attr("x", center[0])
 					.attr("y", center[1]);
 
