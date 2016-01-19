@@ -23,15 +23,24 @@ svg {
 }
 
 .req_chart rect{
-    stroke: white;
+
     fill: steelblue;
 }
 
+.req_chart text {
+    fill: #000;
+}
+
+.req_chart text.name {
+    fill: #000;
+}
+
 div#requestedFiles_container {
-    height: 400px;
-    width: 400px;
+    height: 205px;
+    width: 810px;
     border:1px solid #656131;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 

@@ -1,9 +1,11 @@
+// Barchart für die RequestedFiles
 function showRequestedFiles(){
 
     // width and height of the svg graphic
-	var width = 400,
+	var width = 800,
 		height = 20 * 200,
-        bar_height = 20;
+        bar_height = 20,
+        left_width = 100;
 
 
 
@@ -11,8 +13,10 @@ function showRequestedFiles(){
 	var svg = d3.select("#requestedFiles_container")
         .append("svg")
         .attr("class","req_chart")
-        .attr("width", width)
-		.attr("height", height);
+        .attr("width", left_width + width + 40)
+		.attr("height", height +30)
+        .append("g")
+        .attr("transform", "translate(10, 20)");
 
 
     d3.json("api/data", function(error, usage) {
@@ -21,6 +25,8 @@ function showRequestedFiles(){
         usage = usage.requestedFiles;
 
         var x,y;
+
+        var gap = 2, yRangeBand;
 
         var maxFile = d3.max(usage, function(d) {
             return d.hits;
@@ -32,21 +38,44 @@ function showRequestedFiles(){
 
 
 
-        y = function(i) { return bar_height * i; }
+        yRangeBand = bar_height + 2 * gap;
+        y = function(i) { return yRangeBand * i; };
 
         svg.selectAll("rect")
             .data(usage)
             .enter().append("rect")
-            .attr("x", 0)
+            .attr("x", left_width)
             .attr("y", function(d, i) { return y(i);})
-            .attr("width", function (d) {return x(d.hits)})
+            .attr("width", function (d) {return x(d.hits) / 2})
             .attr("height", bar_height);
 
+        svg.selectAll("text.score")
+            .data(usage)
+            .enter().append("text")
+            .attr("x", function (d) {return x(d.hits);})
+            .attr("y", function(d, i){ return y(i) + bar_height/2; } )
+            .attr("dx", -5)
+            .attr("dy", ".36em")
+            .attr("text-anchor", "start")
+            .attr('class', 'score')
+            .text(function (d) {return d.url});
 
+        svg.selectAll("text.name")
+            .data(usage)
+            .enter().append("text")
+            .attr("x", left_width / 2)
+            .attr("y", function(d, i){ return y(i) + bar_height/2; } )
+            .attr("dx", -5)
+            .attr("dy", ".36em")
+            .attr("text-anchor", "middle")
+            .attr('class', 'name')
+            .text(function (d) {return d.hits});
     });
 
 
+
 }
+//-------------------------------------------------------------
 
 
 function showMap() {
