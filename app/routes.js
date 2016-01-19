@@ -35,6 +35,7 @@ module.exports = function (app) {
                 // Read visitors data
                 function (callback) {
                     var query = Visitors.find();
+
                     query.exec(function (err, visitors) {
                         if (err) {
                             callback(err);
