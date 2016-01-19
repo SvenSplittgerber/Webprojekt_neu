@@ -46,7 +46,7 @@ module.exports = function (app) {
 
                 // Read from requested files
                 function (callback) {
-                    var query = RequestedFiles.find();
+                    var query = RequestedFiles.find({}).sort({hits: -1});
                     query.exec(function (err, requestedFiles) {
                         if (err) {
                             callback(err);

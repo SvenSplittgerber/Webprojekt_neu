@@ -1,0 +1,37 @@
+/* MAP */
+
+svg {
+	display: block;
+}
+
+.tooltip {
+	pointer-events: none;
+	text-anchor: middle;
+	font: 11px Verdana;
+}
+
+.tooltip_rect {
+	pointer-events: none;
+	fill: #ffffff;
+	stroke: #d3d3d3;
+	opacity: 0.9;
+}
+
+.req_chart {
+	background: #b0e0f8;
+	margin: 5px;
+}
+
+.req_chart rect{
+    stroke: white;
+    fill: steelblue;
+}
+
+div#requestedFiles_container {
+    height: 400px;
+    width: 400px;
+    border:1px solid #656131;
+    overflow: scroll;
+}
+
+

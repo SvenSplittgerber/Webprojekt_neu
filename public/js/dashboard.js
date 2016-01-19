@@ -1,6 +1,53 @@
 function showRequestedFiles(){
 
+    // width and height of the svg graphic
+	var width = 400,
+		height = 20 * 200,
+        bar_height = 20;
+
+
+
+	// create the svg graphic
+	var svg = d3.select("#requestedFiles_container")
+        .append("svg")
+        .attr("class","req_chart")
+        .attr("width", width)
+		.attr("height", height);
+
+
+    d3.json("api/data", function(error, usage) {
+        if (error) return console.error(error);
+
+        usage = usage.requestedFiles;
+
+        var x,y;
+
+        var maxFile = d3.max(usage, function(d) {
+            return d.hits;
+        });
+
+        x = d3.scale.linear()
+            .domain([0, maxFile])
+            .range([0, width]);
+
+
+
+        y = function(i) { return bar_height * i; }
+
+        svg.selectAll("rect")
+            .data(usage)
+            .enter().append("rect")
+            .attr("x", 0)
+            .attr("y", function(d, i) { return y(i);})
+            .attr("width", function (d) {return x(d.hits)})
+            .attr("height", bar_height);
+
+
+    });
+
+
 }
+
 
 function showMap() {
 

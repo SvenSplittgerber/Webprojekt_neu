@@ -9,15 +9,15 @@
 		<!-- Generic imports -->
 		<link rel="stylesheet" type="text/css" href="css/reset.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/charts.css">
 
 		<script src="js/d3.js" charset="utf-8"></script>
-		<!-- Map imports -->
-		<link rel="stylesheet" type="text/css" href="css/map.css">
+
 		<script src="js/dashboard.js" charset="utf-8"></script>
 		<script src="js/topojson.js" charset="utf-8"></script>
 
 	</head>
-	<body onload="showMap();">
+	<body onload="showMap(); showRequestedFiles();">
 
 	<div id="wrapper">
 
@@ -29,7 +29,9 @@
 
 		</div>
 
-		<div id="requestedFiles_container"></div>
+		<div id="requestedFiles_container">
+
+        </div>
 
 	</div>
 
