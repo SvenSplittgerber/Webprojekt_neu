@@ -1,18 +1,19 @@
 /* MAP */
 
-body {
-	font: 10px sans-serif;
+body { font: 11px Verdana;}
+
+path {
+	stroke: #f95800;
+	stroke-width: 1.5;
+	fill: none;
 }
 
 .axis path,
 .axis line {
 	fill: none;
-	stroke: #000;
+	stroke: grey;
+	stroke-width: 1;
 	shape-rendering: crispEdges;
-}
-
-.area {
-	fill: steelblue;
 }
 
 svg {
@@ -57,5 +58,7 @@ div#requestedFiles_container {
     overflow: scroll;
     overflow-x: hidden;
 }
+
+
 
 
