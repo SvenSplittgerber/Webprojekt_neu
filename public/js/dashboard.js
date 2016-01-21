@@ -68,7 +68,13 @@ function showVisitors(){
 		// Add the Y Axis
 		svg.append("g")
 			.attr("class", "y axis")
-			.call(yAxis);
+			.call(yAxis)
+		.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 6)
+			.attr("dy", ".71em")
+			.style("text-anchor", "end")
+			.text("Visitors");
 
 		// append the x line
 		focus.append("line")
@@ -195,7 +201,12 @@ function showRequestedFiles(){
         left_width = 100;
     var gap = 2, yRangeBand;
 
-
+	var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, -30])
+		.html(function(d) {
+			return "URL: <span style='color:lightblue'>" + d.url + "</span><br>" + "Protocol: <span style='color:lightblue'>" + d.protocol + "</span>";
+		})
 
 	// create the svg graphic
 	var svg = d3.select("#requestedFiles_container")
@@ -215,8 +226,6 @@ function showRequestedFiles(){
 
         var x,y;
 
-
-
         var maxFile = d3.max(usage, function(d) {
             return d.hits;
         });
@@ -231,7 +240,7 @@ function showRequestedFiles(){
 
         y = function(i) { return yRangeBand * i; };
 
-
+		svg.call(tip);
 
         //Sollte eigentlich vertikale Graue Striche zeichnen... tuts aber net die Sau
         svg.selectAll("line")
@@ -241,7 +250,6 @@ function showRequestedFiles(){
             .attr("x2", function(d) { return x(d) + left_width; })
             .attr("y1", 0)
             .attr("y2", (bar_height + gap * 2) * height);
-
 
         //Sollte eigentlich die Striche beschriften
         svg.selectAll(".rule")
@@ -262,7 +270,9 @@ function showRequestedFiles(){
             .attr("x", left_width)
             .attr("y", function(d, i) { return y(i);})
             .attr("width", function (d) {return x(d.hits)})
-            .attr("height", bar_height);
+            .attr("height", bar_height)
+			.on('mouseover', tip.show)
+			.on('mouseout', tip.hide);
 
         //Beschriftung vor den Balken
         svg.selectAll("text.name")
@@ -275,9 +285,8 @@ function showRequestedFiles(){
             .attr("text-anchor", "middle")
             .attr('class', 'name')
             .text(function (d) {return d.hits + " Hits"});
-
-
     });
+
 
 
 
