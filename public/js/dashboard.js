@@ -190,9 +190,10 @@ function showRequestedFiles(){
 
     // width and height of the svg graphic
 	var width = 800,
-		height = 20 * 200,
+		height = 200,
         bar_height = 20,
         left_width = 100;
+    var gap = 2, yRangeBand;
 
 
 
@@ -201,11 +202,12 @@ function showRequestedFiles(){
         .append("svg")
         .attr("class","req_chart")
         .attr("width", left_width + width + 40)
-		.attr("height", height +30)
+		.attr("height", (bar_height + gap * 2) * height + 30)
         .append("g")
         .attr("transform", "translate(10, 20)");
 
 
+    //Get the data
     d3.json("api/data", function(error, usage) {
         if (error) return console.error(error);
 
@@ -213,7 +215,7 @@ function showRequestedFiles(){
 
         var x,y;
 
-        var gap = 2, yRangeBand;
+
 
         var maxFile = d3.max(usage, function(d) {
             return d.hits;
@@ -226,27 +228,43 @@ function showRequestedFiles(){
 
 
         yRangeBand = bar_height + 2 * gap;
+
         y = function(i) { return yRangeBand * i; };
 
+
+
+        //Sollte eigentlich vertikale Graue Striche zeichnen... tuts aber net die Sau
+        svg.selectAll("line")
+            .data(x.ticks(d3.max(usage)))
+            .enter().append("line")
+            .attr("x1", function(d) { return x(d) + left_width; })
+            .attr("x2", function(d) { return x(d) + left_width; })
+            .attr("y1", 0)
+            .attr("y2", (bar_height + gap * 2) * height);
+
+
+        //Sollte eigentlich die Striche beschriften
+        svg.selectAll(".rule")
+            .data(x.ticks(d3.max(usage)))
+            .enter().append("text")
+            .attr("class", "rule")
+            .attr("x", function(d) { return x(d) + left_width; })
+            .attr("y", 0)
+            .attr("dy", -6)
+            .attr("text-anchor", "middle")
+            .attr("font-size", 10)
+            .text(function (d) {return d});
+
+        //Zeichnet die Balken
         svg.selectAll("rect")
             .data(usage)
             .enter().append("rect")
             .attr("x", left_width)
             .attr("y", function(d, i) { return y(i);})
-            .attr("width", function (d) {return x(d.hits) / 2})
+            .attr("width", function (d) {return x(d.hits)})
             .attr("height", bar_height);
 
-        svg.selectAll("text.score")
-            .data(usage)
-            .enter().append("text")
-            .attr("x", function (d) {return x(d.hits);})
-            .attr("y", function(d, i){ return y(i) + bar_height/2; } )
-            .attr("dx", -5)
-            .attr("dy", ".36em")
-            .attr("text-anchor", "start")
-            .attr('class', 'score')
-            .text(function (d) {return d.url});
-
+        //Beschriftung vor den Balken
         svg.selectAll("text.name")
             .data(usage)
             .enter().append("text")
@@ -256,7 +274,9 @@ function showRequestedFiles(){
             .attr("dy", ".36em")
             .attr("text-anchor", "middle")
             .attr('class', 'name')
-            .text(function (d) {return d.hits});
+            .text(function (d) {return d.hits + " Hits"});
+
+
     });
 
 

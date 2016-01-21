@@ -34,13 +34,14 @@ svg {
 }
 
 .req_chart {
-	background: #b0e0f8;
+	background: white;
 	margin: 5px;
 }
 
 .req_chart rect{
 
-    fill: steelblue;
+    fill: #f95800;
+    stroke: none;
 }
 
 .req_chart text {
@@ -48,6 +49,18 @@ svg {
 }
 
 .req_chart text.name {
+    fill: #000;
+}
+
+.req_chart rect:hover {
+    fill: #64707D;
+}
+
+.req_chart line {
+    stroke: #c1c1c1;
+}
+
+.req_chart .rule {
     fill: #000;
 }
 
