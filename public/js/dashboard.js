@@ -203,7 +203,7 @@ function showRequestedFiles(){
 
 	var tip = d3.tip()
 		.attr('class', 'd3-tip')
-		.offset([-10, -30])
+		.offset([-10, 0])
 		.html(function(d) {
 			return "URL: <span style='color:lightblue'>" + d.url + "</span><br>" + "Protocol: <span style='color:lightblue'>" + d.protocol + "</span>";
 		})
