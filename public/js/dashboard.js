@@ -1,31 +1,34 @@
+
+/* Function to show 'Visitors'-Graph*/
 function showVisitors(){
-	// Set the dimensions of the canvas / graph
+	// Set the dimensions of the graph
 	var margin = {top: 30, right: 40, bottom: 30, left: 50},
 		width = 800 - margin.left - margin.right,
 		height = 530 - margin.top - margin.bottom;
 
-// Parse the date / time
+	// Parse the date
 	var parseDate = d3.time.format("%d/%b/%Y").parse,
 		formatDate = d3.time.format("%d/%b"),
 		bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
-// Set the ranges
+	// Set the graph ranges
 	var x = d3.time.scale().range([0, width]);
 	var y = d3.scale.linear().range([height, 0]);
 
-// Define the axes
+	// Define the X axis
 	var xAxis = d3.svg.axis().scale(x)
 		.orient("bottom").ticks(10);
 
+	// Define the Y axis
 	var yAxis = d3.svg.axis().scale(y)
 		.orient("left").ticks(10);
 
-// Define the line
-	var valueline = d3.svg.line()
+	// Define the graph-line
+	var graphLine = d3.svg.line()
 		.x(function(d) { return x(d.date); })
 		.y(function(d) { return y(d.hits); });
 
-// Adds the svg canvas
+	// Adding the svg
 	var svg = d3.select("#visitors_container")
 		.append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -36,36 +39,39 @@ function showVisitors(){
 
 	var lineSvg = svg.append("g");
 
-	var focus = svg.append("g")
+	var focusDate = svg.append("g")
 		.style("display", "none");
 
-// Get the data
+	// Get the json data
 	d3.json("api/data", function(error, data) {
 
+		// Getting just the visitors data
 		data = data.visitors;
-		data.sort(comp);
+
+		// Sort the visitors data by date using the compareDate function
+		data.sort(compareDate);
 
 		data.forEach(function(d) {
 			d.date = parseDate(d.date);
 			d.hits = +d.hits;
 		});
 
-		// Scale the range of the data
+		// Scaling the range of the data
 		x.domain(d3.extent(data, function(d) { return d.date; }));
 		y.domain([0, d3.max(data, function(d) { return d.hits; })]);
 
-		// Add the valueline path.
+		// Adding the graphLine path
 		lineSvg.append("path")
 			.attr("class", "line")
-			.attr("d", valueline(data));
+			.attr("d", graphLine(data));
 
-		// Add the X Axis
+		// Adding the X axis
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis);
 
-		// Add the Y Axis
+		// Adding the Y axis
 		svg.append("g")
 			.attr("class", "y axis")
 			.call(yAxis)
@@ -76,65 +82,66 @@ function showVisitors(){
 			.style("text-anchor", "end")
 			.text("Visitors");
 
-		// append the x line
-		focus.append("line")
+		// Appending the X line (tooltip)
+		focusDate.append("line")
 			.attr("class", "x")
 			.style("stroke", "grey")
 			.style("stroke-dasharray", "3,3")
 			.attr("y1", 0)
 			.attr("y2", height);
 
-		// append the y line
-		focus.append("line")
+		// Appending the Y line (tooltip)
+		focusDate.append("line")
 			.attr("class", "y")
 			.style("stroke", "grey")
 			.style("stroke-dasharray", "3,3")
 			.attr("x1", width)
 			.attr("x2", width);
 
-		// append the circle at the intersection
-		focus.append("circle")
+		// Appending the circle (tooltip)
+		focusDate.append("circle")
 			.attr("class", "y")
 			.style("fill", "none")
 			.style("stroke", "grey")
 			.attr("r", 4);
 
-		// place the value at the intersection
-		focus.append("text")
+		// Placing the value (tooltip)
+		focusDate.append("text")
 			.attr("class", "y1")
 			.style("stroke", "white")
 			.style("stroke-width", "3.5px")
 			.style("opacity", 0.8)
 			.attr("dx", 8)
 			.attr("dy", "-.3em");
-		focus.append("text")
+		focusDate.append("text")
 			.attr("class", "y2")
 			.attr("dx", 8)
 			.attr("dy", "-.3em");
 
-		// place the date at the intersection
-		focus.append("text")
+		// Placing the date (tooltip)
+		focusDate.append("text")
 			.attr("class", "y3")
 			.style("stroke", "white")
 			.style("stroke-width", "3.5px")
 			.style("opacity", 0.8)
 			.attr("dx", 8)
 			.attr("dy", "1em");
-		focus.append("text")
+		focusDate.append("text")
 			.attr("class", "y4")
 			.attr("dx", 8)
 			.attr("dy", "1em");
 
-		// append the rectangle to capture mouse
+		// Appending rect for mouse capturing
 		svg.append("rect")
 			.attr("width", width)
 			.attr("height", height)
 			.style("fill", "none")
 			.style("pointer-events", "all")
-			.on("mouseover", function() { focus.style("display", null); })
-			.on("mouseout", function() { focus.style("display", "none"); })
+			.on("mouseover", function() { focusDate.style("display", null); })
+			.on("mouseout", function() { focusDate.style("display", "none"); })
 			.on("mousemove", mousemove);
 
+		// Mousemove function
 		function mousemove() {
 			var x0 = x.invert(d3.mouse(this)[0]),
 				i = bisectDate(data, x0, 1),
@@ -142,65 +149,65 @@ function showVisitors(){
 				d1 = data[i],
 				d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 
-			focus.select("circle.y")
+			focusDate.select("circle.y")
 				.attr("transform",
 					"translate(" + x(d.date) + "," +
 					y(d.hits) + ")");
 
-			focus.select("text.y1")
+			focusDate.select("text.y1")
 				.attr("transform",
 					"translate(" + x(d.date) + "," +
 					y(d.hits) + ")")
 				.text(d.hits + " visitors");
 
-			focus.select("text.y2")
+			focusDate.select("text.y2")
 				.attr("transform",
 					"translate(" + x(d.date) + "," +
 					y(d.hits) + ")")
 				.text(d.hits + " visitors");
 
-			focus.select("text.y3")
+			focusDate.select("text.y3")
 				.attr("transform",
 					"translate(" + x(d.date) + "," +
 					y(d.hits) + ")")
 				.text(formatDate(d.date));
 
-			focus.select("text.y4")
+			focusDate.select("text.y4")
 				.attr("transform",
 					"translate(" + x(d.date) + "," +
 					y(d.hits) + ")")
 				.text(formatDate(d.date));
 
-			focus.select(".x")
+			focusDate.select(".x")
 				.attr("transform",
 					"translate(" + x(d.date) + "," +
 					y(d.hits) + ")")
 				.attr("y2", height - y(d.hits));
 
-			focus.select(".y")
+			focusDate.select(".y")
 				.attr("transform",
 					"translate(" + width * -1 + "," +
 					y(d.hits) + ")")
 				.attr("x2", width + width);
 		}
-
 	});
 
-	function comp(a, b) {
+	function compareDate(a, b) {
 		return new Date(a.date) - new Date(b.date);
 	}
 }
 
-// Barchart für die RequestedFiles
+/* Function to show 'RequestedFiles'-Chart*/
 function showRequestedFiles(){
 
-    // width and height of the svg graphic
+	// Set the dimensions of the chart
 	var width = 800,
 		height = 200,
         bar_height = 20,
         left_width = 100;
     var gap = 2, yRangeBand;
 
+	// Defining the tooltip for the chart using D3-Tip
 	var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
@@ -208,51 +215,52 @@ function showRequestedFiles(){
 			return "URL: <span style='color:lightblue'>" + d.url + "</span><br>" + "Protocol: <span style='color:lightblue'>" + d.protocol + "</span>";
 		})
 
-	// create the svg graphic
+	// Adding the svg
 	var svg = d3.select("#requestedFiles_container")
         .append("svg")
         .attr("class","req_chart")
         .attr("width", left_width + width + 40)
 		.attr("height", (bar_height + gap * 2) * height + 30)
         .append("g")
-        .attr("transform", "translate(10, 20)");
+        .attr("transform", "translate(10, 10)");
 
 
-    //Get the data
-    d3.json("api/data", function(error, usage) {
-        if (error) return console.error(error);
+    // Get the json data
+    d3.json("api/data", function(usage) {
 
+		// Getting just the requested files data
         usage = usage.requestedFiles;
 
         var x,y;
 
+		// Getting the requested file with most hits
         var maxFile = d3.max(usage, function(d) {
             return d.hits;
         });
 
+
+		// Defining the scale for bars
         x = d3.scale.linear()
             .domain([0, maxFile])
             .range([0, width]);
-
-
 
         yRangeBand = bar_height + 2 * gap;
 
         y = function(i) { return yRangeBand * i; };
 
+		// Calling the tooltip
 		svg.call(tip);
 
-        //Sollte eigentlich vertikale Graue Striche zeichnen... tuts aber net die Sau
-        svg.selectAll("line")
+		/* Should do some vertical lines and description, but does not work however
+        /*svg.selectAll("line")
             .data(x.ticks(d3.max(usage)))
             .enter().append("line")
             .attr("x1", function(d) { return x(d) + left_width; })
             .attr("x2", function(d) { return x(d) + left_width; })
             .attr("y1", 0)
-            .attr("y2", (bar_height + gap * 2) * height);
+            .attr("y2", (bar_height + gap * 2) * height);*/
 
-        //Sollte eigentlich die Striche beschriften
-        svg.selectAll(".rule")
+        /*svg.selectAll(".rule")
             .data(x.ticks(d3.max(usage)))
             .enter().append("text")
             .attr("class", "rule")
@@ -261,9 +269,9 @@ function showRequestedFiles(){
             .attr("dy", -6)
             .attr("text-anchor", "middle")
             .attr("font-size", 10)
-            .text(function (d) {return d});
+            .text(function (d) {return d});*/
 
-        //Zeichnet die Balken
+        // Setting and appending the bars
         svg.selectAll("rect")
             .data(usage)
             .enter().append("rect")
@@ -274,7 +282,7 @@ function showRequestedFiles(){
 			.on('mouseover', tip.show)
 			.on('mouseout', tip.hide);
 
-        //Beschriftung vor den Balken
+        // Setting and appending bar description
         svg.selectAll("text.name")
             .data(usage)
             .enter().append("text")
@@ -286,10 +294,6 @@ function showRequestedFiles(){
             .attr('class', 'name')
             .text(function (d) {return d.hits + " Hits"});
     });
-
-
-
-
 }
 //-------------------------------------------------------------
 

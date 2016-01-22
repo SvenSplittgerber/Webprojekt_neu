@@ -1,8 +1,10 @@
+/* Schema definition for the requested files data. */
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 module.exports = function() {
-    var RequestedStaticFilesSchema = new mongoose.Schema({
+    var RequestedFilesSchema = new mongoose.Schema({
         _id: Schema.Types.ObjectId,
         category: String,
         hits: Number,
@@ -13,5 +15,7 @@ module.exports = function() {
         method: String
     });
 
-    mongoose.model('requestedStaticFiles', RequestedStaticFilesSchema, 'requestedStaticFiles');
-};;
+    mongoose.model('requestedFiles', RequestedFilesSchema, 'requestedFiles');
+};
+
+

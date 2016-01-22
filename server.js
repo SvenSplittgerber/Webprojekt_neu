@@ -1,27 +1,25 @@
-// modules =================================================
+// Modules
 var express        = require('express');
 var app            = express();
-var bodyParser     = require('body-parser');
-var methodOverride = require('method-override');
-//var mongoose = require('mongoose');
-// configuration ===========================================
-//var db = require('./config/db');
+//var bodyParser     = require('body-parser');
+//var methodOverride = require('method-override');
 
-// config files
+// Configuration
 var port = process.env.PORT || 8080; // set our port
 
-// get all data/stuff of the body (POST) parameters
-app.use(bodyParser.json()); // parse application/json 
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
-app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
+// Not needed anymore?
+//app.use(bodyParser.json()); // parse application/json
+//app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+//app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
+//app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 
-app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+// Setting the static files location
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
-// routes ==================================================
-require('./app/routes')(app); // pass our application into our routes
+// Passing the application into routes
+require('./app/routes')(app);
 
-// start app ===============================================
+// Starting the app
 app.listen(port);	
-console.log('Server läuft auf Port ' + port); 			// shoutout to the user
-exports = module.exports = app; 						// expose app
+console.log('Server läuft auf Port ' + port);
+exports = module.exports = app;

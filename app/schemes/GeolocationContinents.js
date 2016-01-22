@@ -1,3 +1,5 @@
+/* Schema definition for the geolocation (continents) data. */
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 

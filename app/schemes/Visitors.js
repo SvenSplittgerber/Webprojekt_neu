@@ -1,3 +1,4 @@
+/* Schema definition for the visitors data. */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 

@@ -1,3 +1,5 @@
+/* Schema definition for the general data. */
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
