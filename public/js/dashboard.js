@@ -277,6 +277,86 @@ function showRequestedFiles(){
 }
 //-------------------------------------------------------------
 
+/* Function to show 'RequestedStaticFiles'-Chart*/
+function showRequestedStaticFiles(){
+
+	// Set the dimensions of the chart
+	var width = 800,
+		height = 200,
+		bar_height = 20,
+		left_width = 100;
+	var gap = 2, yRangeBand;
+
+	// Defining the tooltip for the chart using D3-Tip
+	var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+			return "URL: <span style='color:lightblue'>" + d.url + "</span><br>" + "Protocol: <span style='color:lightblue'>" + d.protocol + "</span>";
+		})
+
+	// Adding the svg
+	var svg = d3.select("#requestedStaticFiles_container")
+		.append("svg")
+		.attr("class","req_chart")
+		.attr("width", left_width + width + 40)
+		.attr("height", (bar_height + gap * 2) * height + 30)
+		.append("g")
+		.attr("transform", "translate(10, 10)");
+
+
+	// Get the json data
+	d3.json("api/data", function(usage) {
+
+		// Getting just the requested static files data
+		usage = usage.requestedStaticFiles;
+
+		var x,y;
+
+		// Getting the requested file with most hits
+		var maxFile = d3.max(usage, function(d) {
+			return d.hits;
+		});
+
+
+		// Defining the scale for bars
+		x = d3.scale.linear()
+			.domain([0, maxFile])
+			.range([0, width]);
+
+		yRangeBand = bar_height + 2 * gap;
+
+		y = function(i) { return yRangeBand * i; };
+
+		// Calling the tooltip
+		svg.call(tip);
+
+		// Setting and appending the bars
+		svg.selectAll("rect")
+			.data(usage)
+			.enter().append("rect")
+			.attr("x", left_width)
+			.attr("y", function(d, i) { return y(i);})
+			.attr("width", function (d) {return x(d.hits)})
+			.attr("height", bar_height)
+			.on('mouseover', tip.show)
+			.on('mouseout', tip.hide);
+
+		// Setting and appending bar description
+		svg.selectAll("text.name")
+			.data(usage)
+			.enter().append("text")
+			.attr("x", left_width / 2)
+			.attr("y", function(d, i){ return y(i) + bar_height/2; } )
+			.attr("dx", -5)
+			.attr("dy", ".36em")
+			.attr("text-anchor", "middle")
+			.attr('class', 'name')
+			.text(function (d) {return d.hits + " Hits"});
+	});
+}
+//-------------------------------------------------------------
+
 
 function showMap() {
 
