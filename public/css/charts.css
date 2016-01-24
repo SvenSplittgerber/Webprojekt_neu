@@ -10,6 +10,11 @@ path {
 	fill: none;
 }
 
+h3{
+	margin-bottom: 15px;
+
+}
+
 .axis path,
 .axis line {
 	fill: none;
