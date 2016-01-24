@@ -251,26 +251,6 @@ function showRequestedFiles(){
 		// Calling the tooltip
 		svg.call(tip);
 
-		/* Should do some vertical lines and description, but does not work however
-        /*svg.selectAll("line")
-            .data(x.ticks(d3.max(usage)))
-            .enter().append("line")
-            .attr("x1", function(d) { return x(d) + left_width; })
-            .attr("x2", function(d) { return x(d) + left_width; })
-            .attr("y1", 0)
-            .attr("y2", (bar_height + gap * 2) * height);*/
-
-        /*svg.selectAll(".rule")
-            .data(x.ticks(d3.max(usage)))
-            .enter().append("text")
-            .attr("class", "rule")
-            .attr("x", function(d) { return x(d) + left_width; })
-            .attr("y", 0)
-            .attr("dy", -6)
-            .attr("text-anchor", "middle")
-            .attr("font-size", 10)
-            .text(function (d) {return d});*/
-
         // Setting and appending the bars
         svg.selectAll("rect")
             .data(usage)

@@ -73,6 +73,8 @@ div#requestedFiles_container {
     border:1px solid #656131;
     overflow: scroll;
     overflow-x: hidden;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .d3-tip {
