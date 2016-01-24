@@ -1,3 +1,4 @@
+/* Author: Johannes Rehm */
 /* Schema definition for the requested files data. */
 
 var mongoose = require('mongoose');

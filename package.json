@@ -1,11 +1,11 @@
 {
-  "name": "starter-node-angular",
+  "name": "Webprogrammierung_Abgabe",
   "main": "server.js",
-  "version": "1.0.1",
+  "version": "1.0.0",
+  "description": "Visualisierung eines Server-Logs der Internetpräsenz www.medieninformatik.de",
   "dependencies": {
-    "express" : "~4.5.1",
-	"mongoose" : "~3.8.0",
-	"body-parser" : "~1.4.2",
-	"method-override" : "~2.0.2"
+    "async": "~1.5.2",
+    "express": "^4.13.4",
+    "mongoose": "^4.3.7"
   }
 }

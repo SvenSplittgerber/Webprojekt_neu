@@ -1,8 +1,8 @@
-
 /* Function to show 'Visitors'-Graph*/
+/* Author: Johannes Rehm */
 function showVisitors(){
 	// Set the dimensions of the graph
-	var margin = {top: 30, right: 40, bottom: 30, left: 50},
+	var margin = {top: 30, right: 50, bottom: 30, left: 50},
 		width = 800 - margin.left - margin.right,
 		height = 530 - margin.top - margin.bottom;
 
@@ -196,8 +196,10 @@ function showVisitors(){
 		return new Date(a.date) - new Date(b.date);
 	}
 }
+//-------------------------------------------------------------
 
 /* Function to show 'RequestedFiles'-Chart*/
+/* Author: Sven Splittgerber */
 function showRequestedFiles(){
 
 	// Set the dimensions of the chart
@@ -278,6 +280,7 @@ function showRequestedFiles(){
 //-------------------------------------------------------------
 
 /* Function to show 'RequestedStaticFiles'-Chart*/
+/* Author: Sven Splittgerber */
 function showRequestedStaticFiles(){
 
 	// Set the dimensions of the chart
@@ -357,7 +360,7 @@ function showRequestedStaticFiles(){
 }
 //-------------------------------------------------------------
 
-
+/* Author: Jessica Cramme */
 function showMap() {
 
 	// var to store tooltip object

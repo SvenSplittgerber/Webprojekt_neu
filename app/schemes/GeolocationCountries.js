@@ -1,3 +1,4 @@
+/* Author: Johannes Rehm */
 /* Schema definition for the geolocation (countries) data. */
 
 var mongoose = require('mongoose');

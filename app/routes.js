@@ -1,16 +1,17 @@
+/* Author: Johannes Rehm */
 /* Defining the basic route for getting the data from MongoDB. */
 
 var mongoose = require('mongoose');
 var async = require('async');
 var db = require('../config/db');
 
-// Getting the schema definitions
+// Set up the Models using the schemes.js
 require('./schemes.js').initialize();
 
 // Connecting to MongoDB
 mongoose.connect(db.dbUrl);
 
-// Setting up the models using the schema definitions
+// Getting the defined models from Mongoose
 var General = mongoose.model('general');
 var Visitors = mongoose.model('visitors');
 var RequestedFiles = mongoose.model('requestedFiles');
