@@ -3,7 +3,7 @@ body { font: 11px Verdana; font-weight: bold;}
 span{ white-space:nowrap;}
 
 path {
-	stroke: #f95800;
+	stroke: #2185C5;
 	stroke-width: 1.5;
 	fill: none;
 }
@@ -42,7 +42,7 @@ svg {
 
 .req_chart rect{
 
-    fill: #f95800;
+    fill: #2185C5;
     stroke: none;
 }
 

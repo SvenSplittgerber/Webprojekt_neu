@@ -366,7 +366,7 @@ function showMap() {
 	// var to store tooltip object
 	var tooltip;
 
-	// width and height of the svg graphic
+	// size of the svg graphic
 	var width = 800,
 		height = 530;
 
@@ -385,7 +385,7 @@ function showMap() {
 		var geos = topojson.feature(map, map.objects.collection);
 
 		// conic conformal projection
-		// showing europe
+		// showing the world
 		var projection_conic_conformal = d3.geo.mercator()
 			.scale((width + 1) / 2 / Math.PI)
 			.translate([width / 2, (height / 2) + 100]);
@@ -395,7 +395,7 @@ function showMap() {
 			.projection(projection_conic_conformal);
 
 
-		// create svg elements of each country in europe
+		// create svg elements of each country on earth
 		var countries = svg.selectAll(".country")
 			.data(geos.features)
 			.enter()
@@ -432,17 +432,17 @@ function showMap() {
 			usage = usage.geolocationCountries;
 
 			// colors
-			var usageColors = ["#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404"];
+			var usageColors = ["#8BC1FD", "#66A6D1", "#2185C5", "#165882", "#0B2B40"];
 
 			// color scale
 			var scaleUsageColors = d3.scale.linear();
 
-			// ----------- Wirft undefined
+			// ----------- throws undefined
 			var minimumUsage = d3.min(usage, function(d) {
 				return d.visitors;
 			});
 
-			// ----------- Wirft undefined
+			// ----------- throws undefined
 			var maximumUsage = d3.max(usage, function(d) {
 				return d.visitors;
 			});
