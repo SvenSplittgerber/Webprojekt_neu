@@ -203,10 +203,10 @@ function showVisitors(){
 function showRequestedFiles(){
 
 	// Set the dimensions of the chart
-	var width = 800,
+	var width = 380,
 		height = 200,
         bar_height = 20,
-        left_width = 100;
+        left_width = 65;
     var gap = 2, yRangeBand;
 
 	// Defining the tooltip for the chart using D3-Tip
@@ -284,10 +284,10 @@ function showRequestedFiles(){
 function showRequestedStaticFiles(){
 
 	// Set the dimensions of the chart
-	var width = 800,
+	var width = 380,
 		height = 200,
 		bar_height = 20,
-		left_width = 100;
+		left_width = 65;
 	var gap = 2, yRangeBand;
 
 	// Defining the tooltip for the chart using D3-Tip

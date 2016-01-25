@@ -1,7 +1,32 @@
+#header{
+    width: 1000px;
+    height: auto;
+    border: 1px solid #a3a3a3;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
 #wrapper {
-	width: 800px;
-	height: 530px;
+	width: 1000px;
+	height: auto;
 	border: 1px solid #a3a3a3;
 	margin: 0 auto;
-	margin-top: 50px;
+	margin-top: 10px;
+}
+
+h1{
+    font: 25px Verdana;
+    text-align: center;
+}
+
+h3{
+    font: 25px Verdana;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.captions{
+    width: 490px;
+    float:left;
 }
