@@ -432,7 +432,7 @@ function showMap() {
 			usage = usage.geolocationCountries;
 
 			// colors
-			var usageColors = ["#8BC1FD", "#66A6D1", "#2185C5", "#165882", "#0B2B40"];
+			var usageColors = ["#C4E0FF", "#66A6D1", "#2185C5", "#165882", "#0B2B40"];
 
 			// color scale
 			var scaleUsageColors = d3.scale.linear();

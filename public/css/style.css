@@ -1,32 +1,63 @@
+@font-face { font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular-webfont.eot#')  format('eot'),
+    url('../fonts/Roboto-Regular-webfont.woff')  format('woff'),
+    url('../fonts/Roboto-Regular-webfont.ttf')   format('truetype'),
+    url('../fonts/Roboto-Regular-webfont.svg#Roboto-Regular')  format('svg'); }
+
 #header{
     width: 1000px;
     height: auto;
-    border: 1px solid #a3a3a3;
+    border: 0px solid #a3a3a3;
     margin: 0 auto;
     margin-top: 5px;
+    font-family: Roboto;
+    padding-top: 50px;
 }
 
 #wrapper {
 	width: 1000px;
 	height: auto;
-	border: 1px solid #a3a3a3;
+	border: 0px solid #a3a3a3;
+    background-color: #fff;
 	margin: 0 auto;
 	margin-top: 10px;
+    margin-bottom: 50px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 0 15px 0 15px;
 }
 
 h1{
-    font: 25px Verdana;
+    font: 46px 'Roboto';
+    color: #0B2B40;
     text-align: center;
+    padding-bottom: 30px;
 }
 
 h3{
-    font: 25px Verdana;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    font: 25px 'Roboto';
+    color: #165882;
+    padding-top: 40px;
+    margin-bottom: 15px;
     margin-left: 5px;
 }
 
 .captions{
     width: 490px;
     float:left;
+}
+
+#visitors_container svg {
+    margin: 0 auto;
+}
+
+#usage_map {
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#map_container {
+    clear: both;
+    padding-top: 10px;
+    padding-bottom: 30px;
 }

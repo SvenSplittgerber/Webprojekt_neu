@@ -1,4 +1,5 @@
-body { font: 11px Verdana; font-weight: bold;}
+body { font: 11px Verdana; font-weight: bold;
+background-color: #f3f3f3;}
 
 span{ white-space:nowrap;}
 
@@ -69,7 +70,7 @@ svg {
 div#requestedFiles_container {
     height: 205px;
     width: 490px;
-    border:1px solid #656131;
+    border: 0px solid #656131;
     overflow: scroll;
     overflow-x: hidden;
 	margin-bottom: 10px;
@@ -82,7 +83,7 @@ div#requestedFiles_container {
 div#requestedStaticFiles_container {
 	height: 205px;
 	width: 490px;
-	border:1px solid #656131;
+	border: 0px solid #656131;
 	overflow: scroll;
 	overflow-x: hidden;
 	margin-bottom: 10px;
